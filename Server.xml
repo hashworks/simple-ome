@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Server version="8">
+    <Name>OvenMediaEngine</Name>
+    <!-- Host type (origin/edge) -->
+    <Type>origin</Type>
+    <!-- Specify IP address to bind (* means all IPs) -->
+    <IP>*</IP>
+    <PrivacyProtection>false</PrivacyProtection>
+    <!-- 
+    To get the public IP address(mapped address of stun) of the local server. 
+    This is useful when OME cannot obtain a public IP from an interface, such as AWS or docker environment. 
+    If this is successful, you can use ${PublicIP} in your settings.
+    -->
+    <StunServer>stun.ovenmediaengine.com:13478</StunServer>
+
+    <Modules>
+        <HTTP2>
+            <Enable>true</Enable>
+        </HTTP2>
+    </Modules>
+
+    <Bind>
+        <Providers>
+            <RTSPC>
+                <WorkerCount>1</WorkerCount>
+            </RTSPC>
+            <RTMP>
+                <Port>1935</Port>
+                <WorkerCount>1</WorkerCount>
+            </RTMP>
+            <SRT>
+                <Port>9999</Port>
+                <WorkerCount>1</WorkerCount>
+            </SRT>
+            <WebRTC>
+                <Signalling>
+                    <Port>3333</Port>
+                    <TLSPort>3334</TLSPort>
+                    <WorkerCount>1</WorkerCount>
+                </Signalling>
+                <IceCandidates>
+                    <TcpRelay>*:3478</TcpRelay>
+                    <TcpForce>true</TcpForce>
+                    <TcpRelayWorkerCount>1</TcpRelayWorkerCount>
+                    <IceCandidate>*:10006/udp</IceCandidate>
+                </IceCandidates>
+            </WebRTC>
+        </Providers>
+
+        <Publishers>
+            <WebRTC>
+                <Signalling>
+                    <Port>3333</Port>
+                    <TLSPort>3334</TLSPort>
+                    <WorkerCount>4</WorkerCount>
+                </Signalling>
+                <IceCandidates>
+                    <IceCandidate>*:10000-10005/udp</IceCandidate>
+                    <TcpRelay>*:3478</TcpRelay>
+                    <TcpForce>true</TcpForce>
+                    <TcpRelayWorkerCount>1</TcpRelayWorkerCount>
+                </IceCandidates>
+            </WebRTC>
+        </Publishers>
+    </Bind>
+
+    <VirtualHosts>
+        <VirtualHost>
+            <Name>default</Name>
+
+            <Host>
+                <Names>
+                    <!-- Host names
+                        <Name>stream1.airensoft.com</Name>
+                        <Name>stream2.airensoft.com</Name>
+                        <Name>*.sub.airensoft.com</Name>
+                        <Name>192.168.0.1</Name>
+                    -->
+                    <Name>*</Name>
+                </Names>
+                <!--
+                <TLS>
+                    <CertPath>path/to/file.crt</CertPath>
+                    <KeyPath>path/to/file.key</KeyPath>
+                    <ChainCertPath>path/to/file.crt</ChainCertPath>
+                </TLS>
+                -->
+            </Host>
+
+            <!-- ./signed_policy_generator.sh [HMAC_KEY] [BASE_URL] [SIGNATURE_QUERY_KEY_NAME] [POLICY_QUERY_KEY_NAME] [POLICY] -->
+            <SignedPolicy>
+                <PolicyQueryKeyName>policy</PolicyQueryKeyName>
+                <SignatureQueryKeyName>signature</SignatureQueryKeyName>
+                <SecretKey>thisisatestkey</SecretKey>
+
+                <Enables>
+                    <Providers>rtmp,srt</Providers>
+                    <!-- <Publishers>webrtc</Publishers> -->
+                </Enables>
+            </SignedPolicy>
+
+            <Applications>
+                <Application>
+                    <Name>live</Name>
+                    <Type>live</Type>
+                    <OutputProfiles>
+                        <OutputProfile>
+                            <Name>bypass_stream</Name>
+                            <OutputStreamName>${OriginStreamName}</OutputStreamName>
+                            <Encodes>
+                                <Audio>
+                                    <Name>bypass_audio</Name>
+                                    <Bypass>true</Bypass>
+                                </Audio>
+                                <Video>
+                                    <Name>bypass_video</Name>
+                                    <Bypass>true</Bypass>
+                                </Video>
+                                <Audio>
+                                    <Codec>opus</Codec>
+                                    <Bitrate>256000</Bitrate>
+                                    <Samplerate>48000</Samplerate>
+                                    <Channel>2</Channel>
+                                </Audio>
+                            </Encodes>
+                        </OutputProfile>
+                    </OutputProfiles>
+                    <Providers>
+                        <RTMP />
+                        <SRT />
+                    </Providers>
+                    <Publishers>
+                        <AppWorkerCount>1</AppWorkerCount>
+                        <StreamWorkerCount>8</StreamWorkerCount>
+                        <WebRTC>
+                            <Timeout>10000</Timeout>
+                            <Rtx>false</Rtx>
+                            <Ulpfec>false</Ulpfec>
+                            <JitterBuffer>false</JitterBuffer>
+                        </WebRTC>
+                    </Publishers>
+                </Application>
+            </Applications>
+        </VirtualHost>
+    </VirtualHosts>
+</Server>

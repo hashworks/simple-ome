@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <meta charset=UTF-8>
+        <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+        <meta name=viewport content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Livestream</title>
+        <script src="node_modules/ovenplayer/dist/ovenplayer.js"></script>
+        <style rel=stylesheet type=text/css>
+            body {
+                background-color: #111;
+            }
+            .player-wrapper {
+                margin: 0 auto;
+                width: 80%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="player-wrapper">
+            <div id="player_id"></div>
+        </div>
+        <script>
+            var stream_key = 'public'
+            if (window.location.hash) {
+                stream_key = window.location.hash.substring(1)
+            }
+            const player = OvenPlayer.create('player_id', {
+                "autoStart": true,
+                "mute": false,
+                "sources": [{
+                    "label": `${stream_key}-webrtc`,
+                    "type": "webrtc",
+                    "file": `wss://${window.location.hostname}:3334/live/${stream_key}`
+                    // "file": `ws://${window.location.hostname}:3333/live/${stream_key}`
+                }],
+                "webrtcConfig": {
+                    "timeoutMaxRetry": 10,
+                    "connectionTimeout": 2000
+                }
+            });
+        </script>
+    </body>
+</html>
