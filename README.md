@@ -4,7 +4,7 @@ Provides a simple configuration and frontend for [OME](https://github.com/AirenS
 
 ## Installation
 
-OME, nginx and NPM are need.
+OME, nginx and NPM are required.
 
 The AUR provides a [PKGBUILD for Arch Linux](https://aur.archlinux.org/packages/ovenmediaengine): `yay -Syu ovenmediaengine`
 
@@ -37,9 +37,9 @@ Provides a HTML5 web-frontend with the [OvenPlayer](https://github.com/AirenSoft
 Use the [`signed_policy_generator.sh`](https://github.com/AirenSoft/OvenMediaEngine/blob/master/misc/signed_policy_url_generator.sh) script to generate a signed policy for authenticated providers:
 
 ```
-$ bash signed_policy_url_generator.sh thisisatestkey rtmp://127.0.0.1:1935/live/public signature policy '{"url_expire":7258165200000}
-[URL] rtmp://127.0.0.1:1935/live/public?policy=eyJ1cmxfZXhwaXJlIjo3MjU4MTY1MjAwMDAwfQ&signature=BeA8pnPdJJHauAHLIcIQeEd0fr0
-[Percent encoded URL] rtmp%3A//127.0.0.1%3A1935/live/public%3Fpolicy%3DeyJ1cmxfZXhwaXJlIjo3MjU4MTY1MjAwMDAwfQ%26signature%3DBeA8pnPdJJHauAHLIcIQeEd0fr0
+$ bash signed_policy_url_generator.sh thisisatestkey rtmp://stream.example.net:1935/live/public signature policy '{"url_expire":7258165200000}'
+[URL] rtmp://stream.example.net:1935/live/public?policy=eyJ1cmxfZXhwaXJlIjo3MjU4MTY1MjAwMDAwfQ&signature=kl7-vm0hRn-ROay1Ms-A0qb4Kok
+[Percent encoded URL] rtmp%3A//stream.example.net%3A1935/live/public%3Fpolicy%3DeyJ1cmxfZXhwaXJlIjo3MjU4MTY1MjAwMDAwfQ%26signature%3Dkl7-vm0hRn-ROay1Ms-A0qb4Kok
 ```
 
 ![obs setting with signed policy](.images/obs_setting_with_signed_policy.png)
