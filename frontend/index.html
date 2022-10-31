@@ -31,8 +31,7 @@
                 "sources": [{
                     "label": `${stream_key}-webrtc`,
                     "type": "webrtc",
-                    "file": `wss://${window.location.hostname}:3334/live/${stream_key}`
-                    // "file": `ws://${window.location.hostname}:3333/live/${stream_key}`
+                    "file": `wss://${window.location.hostname}/live/${stream_key}`
                 }],
                 "webrtcConfig": {
                     "timeoutMaxRetry": 10,

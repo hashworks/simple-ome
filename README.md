@@ -24,15 +24,22 @@ npm install
 
 Adjust `/etc/ovenmediaengine/Server.xml` and `/etc/nginx/sites-available/stream.example.net.conf` according to your liking.
 
-## Components
+## Required ports
 
-### Frontend
+| Port        | Protocol | Description  |
+| ----------- | -------- | ------------ |
+| 1935        | TCP      | RTMP Ingest  |
+| 443         | TCP      | nginx        |
+| 3478        | TCP      | WebRTC Relay |
+| 10000-10005 | UDP      | WebRTC Ice   |
+
+## Frontend
 
 Provides a HTML5 web-frontend with the [OvenPlayer](https://github.com/AirenSoft/OvenPlayer) and a stream key that is adjustable by the URL fragment/hash (f.e. `https://stream.example.net#customkey`, defaults to `public`).
 
 ![frontend_with_custom_key](.images/frontend_with_custom_key.png)
 
-### Authentication
+## Authentication
 
 Use the [`signed_policy_generator.sh`](https://github.com/AirenSoft/OvenMediaEngine/blob/master/misc/signed_policy_url_generator.sh) script to generate a signed policy for authenticated providers:
 
