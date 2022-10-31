@@ -29,9 +29,6 @@ Adjust `/etc/ovenmediaengine/Server.xml` and `/etc/nginx/sites-available/stream.
 | Port        | Protocol | Description            |
 | ----------- | -------- | ---------------------- |
 | 1935        | TCP      | RTMP Ingest            |
-| 443         | TCP      | nginx                  |
-| 3333        | TCP      | WebRTC Signaling       |
-| 3334        | TCP      | WebRTC Signaling (TLS) |
 | 443         | TCP      | nginx (TLS)            |
 | 3478        | TCP      | WebRTC Relay           |
 | 10000-10005 | UDP      | WebRTC Ice             |
