@@ -6,7 +6,7 @@ Provides a simple configuration and frontend for [OME](https://github.com/AirenS
 
 OME, nginx and NPM are required.
 
-The AUR provides a [PKGBUILD for Arch Linux](https://aur.archlinux.org/packages/ovenmediaengine): `yay -Syu ovenmediaengine`
+The Arch Linux community repository [provides a package](https://archlinux.org/packages/community/x86_64/ovenmediaengine/): `pacman -Syu ovenmediaengine`
 
 ```bash
 mkdir -p /usr/local/src
