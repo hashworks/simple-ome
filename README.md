@@ -50,3 +50,11 @@ $ bash signed_policy_url_generator.sh thisisatestkey rtmp://stream.example.net:1
 ```
 
 ![obs setting with signed policy](.images/obs_setting_with_signed_policy.png)
+
+## OBS Output Settings
+
+It is important to adjust the B-frames count to zero when one uses OME:
+
+![obs setting with zero b-frames](.images/obs_output_config.png)
+
+A bitrate of at least 10000 Kbps is recommended for a high quality stream due to the low B-frames count.
