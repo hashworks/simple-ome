@@ -26,8 +26,9 @@
                 stream_key = window.location.hash.substring(1)
             }
             const player = OvenPlayer.create('player_id', {
-                "autoStart": true,
+                "autoStart": true, // May not work due to browser policy
                 "mute": false,
+                "hidePlaylistIcon": true,
                 "sources": [{
                     "label": `${stream_key}-webrtc`,
                     "type": "webrtc",
