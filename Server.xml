@@ -6,12 +6,6 @@
     <IP>*</IP>
     <PrivacyProtection>false</PrivacyProtection>
 
-    <Modules>
-        <HTTP2>
-            <Enable>true</Enable>
-        </HTTP2>
-    </Modules>
-
     <Bind>
         <Providers>
             <RTMP>
@@ -65,21 +59,60 @@
                         <OutputProfile>
                             <Name>bypass_stream</Name>
                             <OutputStreamName>${OriginStreamName}</OutputStreamName>
+                            <Playlist>
+                                <Name>Quality Profiles</Name>
+                                <FileName>abr</FileName>
+                                <Options>
+                                    <WebRtcAutoAbr>false</WebRtcAutoAbr>
+                                </Options>
+                                <Rendition>
+                                    <Name>Original</Name>
+                                    <Video>bypass_video</Video>
+                                    <Audio>opus</Audio>
+                                </Rendition>
+                                <Rendition>
+                                    <Name>7MBits</Name>
+                                    <Video>7mbits_h264</Video>
+                                    <Audio>opus</Audio>
+                                </Rendition>
+                                <Rendition>
+                                    <Name>5MBits</Name>
+                                    <Video>5mbits_h264</Video>
+                                    <Audio>opus</Audio>
+                                </Rendition>
+                                <Rendition>
+                                    <Name>2MBits</Name>
+                                    <Video>2mbits_h264</Video>
+                                    <Audio>opus</Audio>
+                                </Rendition>
+                            </Playlist>
                             <Encodes>
-                                <Audio>
-                                    <Name>bypass_audio</Name>
-                                    <Bypass>true</Bypass>
-                                </Audio>
                                 <Video>
                                     <Name>bypass_video</Name>
                                     <Bypass>true</Bypass>
                                 </Video>
                                 <Audio>
+                                    <Name>opus</Name>
                                     <Codec>opus</Codec>
                                     <Bitrate>256000</Bitrate>
                                     <Samplerate>48000</Samplerate>
                                     <Channel>2</Channel>
                                 </Audio>
+                                <Video>
+                                    <Name>7mbits_h264</Name>
+                                    <Codec>h264</Codec>
+                                    <Bitrate>7000000</Bitrate>
+                                </Video>
+                                <Video>
+                                    <Name>5mbits_h264</Name>
+                                    <Codec>h264</Codec>
+                                    <Bitrate>5000000</Bitrate>
+                                </Video>
+                                <Video>
+                                    <Name>2mbits_h264</Name>
+                                    <Codec>h264</Codec>
+                                    <Bitrate>2000000</Bitrate>
+                                </Video>
                             </Encodes>
                         </OutputProfile>
                     </OutputProfiles>
@@ -87,13 +120,15 @@
                         <RTMP />
                     </Providers>
                     <Publishers>
-                        <AppWorkerCount>1</AppWorkerCount>
+                        <AppWorkerCount>
+                            1</AppWorkerCount>
                         <StreamWorkerCount>8</StreamWorkerCount>
                         <WebRTC>
                             <Timeout>10000</Timeout>
                             <Rtx>false</Rtx>
                             <Ulpfec>false</Ulpfec>
-                            <JitterBuffer>false</JitterBuffer>
+                            <JitterBuffer>
+                                false</JitterBuffer>
                         </WebRTC>
                     </Publishers>
                 </Application>

@@ -14,9 +14,6 @@
                 margin: 0 auto;
                 width: 80%;
             }
-            .setting-holder {
-                display: none;
-            }
         </style>
     </head>
     <body>
@@ -31,13 +28,12 @@
             const player = OvenPlayer.create('player_id', {
                 "autoStart": true, // May not work due to browser policy
                 "mute": false,
-                "hidePlaylistIcon": true,
                 "sources": [{
                     "label": `${stream_key}-webrtc`,
                     "type": "webrtc",
-                    "file": `wss://${window.location.hostname}/live/${stream_key}`
-                    //"file": `wss://${window.location.hostname}:3334/live/${stream_key}`
-                    //"file": `ws://${window.location.hostname}:3333/live/${stream_key}`
+                    "file": `wss://${window.location.hostname}/live/${stream_key}/abr`
+                    //"file": `wss://${window.location.hostname}:3334/live/${stream_key}/abr`
+                    //"file": `ws://${window.location.hostname}:3333/live/${stream_key}/abr`
                 }],
                 "webrtcConfig": {
                     "timeoutMaxRetry": 10,
